@@ -104,6 +104,11 @@ export function createInterwiki(
 
   // Construct the function that will resize the frame after changes
   var site = document.referrer;
+
+  // Extract domain and protocol only (for SCP-JP localization)
+  var url = new URL(site);
+  site = url.protocol + "//" + url.hostname;
+
   var frameId = location.href.replace(/^.*\//, "/");
   var resize = createResizeIframe(site, frameId);
 
