@@ -106,7 +106,7 @@ export function createInterwiki(
   var site = document.referrer;
 
   // Extract domain and protocol only (for SCP-JP localization)
-  const url = new URL(site);
+  var url = new URL(site);
   site = url.protocol + "//" + url.hostname;
 
   var frameId = location.href.replace(/^.*\//, "/");
