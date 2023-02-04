@@ -18,7 +18,6 @@ export function createResizeIframe(site, frameId) {
   var CacheBreak = String(Math.floor(Math.random() * 10000));
   var oldheight = 0;
   resizer.style.display = "none";
-  container.appendChild(resizer);
 
   if (frameId[0] !== "/") frameId = "/" + frameId;
 
@@ -33,6 +32,7 @@ export function createResizeIframe(site, frameId) {
       var height = container.getBoundingClientRect().top;
       // Brute-force past any subpixel issues
       if (height !== oldheight) {
+        container.innerHTML = "";
         resizer.src =
           site +
           "/common--javascript/resize-iframe.html?" +
@@ -40,9 +40,11 @@ export function createResizeIframe(site, frameId) {
           "#" +
           height +
           frameId;
+        container.appendChild(resizer);
+        oldheight = height;
       }
     }
-  }, 750);
+  }, 50);
 }
 
 /**

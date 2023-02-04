@@ -245,4 +245,3 @@ To build, run `npm run build`. Output can be found in the `dist/` directly,
 and all files present should be hosted for usage.
 
 All JavaScript should be written in ES5.
-
