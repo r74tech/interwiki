@@ -15,8 +15,9 @@ export var flags = { showInterwiki: false };
 export function createResizeIframe(site, frameId) {
   var container = document.getElementById("resizer-container");
   var resizer = document.createElement("iframe");
+  var CacheBreak = String(Math.floor(Math.random() * 10000));
+  var oldheight = 0;
   resizer.style.display = "none";
-  container.appendChild(resizer);
 
   if (frameId[0] !== "/") frameId = "/" + frameId;
 
@@ -30,15 +31,20 @@ export function createResizeIframe(site, frameId) {
       // why the iframe has it instead
       var height = container.getBoundingClientRect().top;
       // Brute-force past any subpixel issues
-      if (height) height += 1;
-      resizer.src =
-        site +
-        "/common--javascript/resize-iframe.html?" +
-        "#" +
-        height +
-        frameId;
+      if (height !== oldheight) {
+        container.innerHTML = "";
+        resizer.src =
+          site +
+          "/common--javascript/resize-iframe.html?" +
+          CacheBreak +
+          "#" +
+          height +
+          frameId;
+        container.appendChild(resizer);
+        oldheight = height;
+      }
     }
-  }, 750);
+  }, 50);
 }
 
 /**

@@ -2,8 +2,8 @@
 
 :root {
   /* ===TYPEFACES=== */
-	--body-font: Inter, "M Plus 1p", sans-serif;
-	--UI-font: PTRootUI, sans-serif;
+  --body-font: Inter, "M Plus 1p", sans-serif;
+  --UI-font: PTRootUI, sans-serif;
   --title-font: var(--body-font);
 
   /* ===BASE FONT SIZE & LINE HEIGHT=== */
