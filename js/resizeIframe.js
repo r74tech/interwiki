@@ -31,13 +31,19 @@ export function createResizeIframe(site, frameId, debounceTime) {
       // Brute-force past any subpixel issues
       if (height) height += 1;
     }
-    resizer.src =
+    var newResizerSrc =
       site +
       "/common--javascript/resize-iframe.html?" +
       "#" +
       height +
       "/" +
       frameId;
+    if (resizer.src !== newResizerSrc) {
+      resizer.src = "about:blank";
+      setTimeout(function () {
+        resizer.src = newResizerSrc;
+      }, 50);
+    }
   };
 
   return debounce(resize, debounceTime);
@@ -53,9 +59,11 @@ export function createResizeIframe(site, frameId, debounceTime) {
 export function debounce(func, wait) {
   var timeout = 0;
   return function () {
+    var context = this;
+    var args = arguments;
     clearTimeout(timeout);
     timeout = setTimeout(function () {
-      func.apply(null, arguments);
+      func.apply(context, args);
     }, wait);
   };
 }
